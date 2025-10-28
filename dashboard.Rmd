@@ -3,7 +3,7 @@ title: "NY NOAA Dashboard"
 output:
   flexdashboard::flex_dashboard:
     orientation: columns
-    vertical_layout: fill
+    vertical_layout: scroll
     theme: cerulean
 runtime: static
 ---
@@ -19,7 +19,7 @@ set.seed(123)
 data("ny_noaa", package = "p8105.datasets")
 ```
 
-Column {data-width=650}
+Column {data-width=600}
 ---
 ### Daily Tmin vs Tmax (sampled)
 ```{r}
@@ -37,10 +37,10 @@ layout(title = "Daily Tmin vs Tmax (sampled)",
        xaxis = list(title = "Tmin (°C)"), yaxis = list(title = "Tmax (°C)"))
 ```
 
-Column {data-width=350}
+Column {data-width=400}
 ---
 ### Monthly Mean Precipitation
-```{r}
+```{r, echo=FALSE}
 # Plot of monthly mean precipitation
 monthly <- ny_noaa |>
            mutate(year = as.integer(substr(date, 1, 4)), 
@@ -56,7 +56,7 @@ layout(title = "Monthly mean precipitation (NY NOAA)", xaxis = list(title = ""),
 ```
 
 ### Top 20 Stations by Observations
-```{r}
+```{r, echo=FALSE}
 # Plot of top 20 stations
 top_st <- ny_noaa |>
           count(id, name = "n_obs", sort = TRUE) |>
