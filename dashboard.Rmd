@@ -20,7 +20,8 @@ data("ny_noaa", package = "p8105.datasets")
 ```
 
 Column {data-width=650}
-###Daily Tmin vs Tmax (sampled)
+
+### Daily Tmin vs Tmax (sampled)
 ```{r}
 # Plot of daily min temperature and max temperature
 wx <- ny_noaa |>
@@ -37,7 +38,8 @@ layout(title = "Daily Tmin vs Tmax (sampled)",
 ```
 
 Column {data-width=350}
-###Monthly Mean Precipitation
+
+### Monthly Mean Precipitation
 ```{r}
 # Plot of monthly mean precipitation
 monthly <- ny_noaa |>
@@ -53,7 +55,7 @@ layout(title = "Monthly mean precipitation (NY NOAA)", xaxis = list(title = ""),
        yaxis = list(title = "Mean precipitation (mm)"))
 ```
 
-###Top 20 Stations by Observations
+### Top 20 Stations by Observations
 ```{r}
 # Plot of top 20 stations
 top_st <- ny_noaa |>
