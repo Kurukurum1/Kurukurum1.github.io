@@ -16,3 +16,5 @@ output:
   html_document:
     theme: cerulean
     toc: false
+exclude:
+  - "dashboard.Rmd"
