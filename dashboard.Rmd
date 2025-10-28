@@ -22,7 +22,7 @@ data("ny_noaa", package = "p8105.datasets")
 Column {data-width=600}
 ---
 ### Daily Tmin vs Tmax (sampled)
-```{r}
+```{r, echo=FALSE}
 # Plot of daily min temperature and max temperature
 wx <- ny_noaa |>
       clean_names() |>
