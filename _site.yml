@@ -1,0 +1,16 @@
+name: "Yiqun Guo"
+output_dir: "."
+navbar:
+  title: "Home"
+  left:
+    - text: "Resume"
+      href: resume.html
+  right:
+    - icon: fa-github
+      href: https://github.com/Kurukurum1
+    - icon: fa-envelope
+      href: mailto:ygtomor1@gmail.com
+output:
+  html_document:
+    theme: cerulean
+    toc: false
