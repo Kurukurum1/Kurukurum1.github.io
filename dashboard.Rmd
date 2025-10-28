@@ -19,7 +19,8 @@ set.seed(123)
 data("ny_noaa", package = "p8105.datasets")
 ```
 
-### Daily Tmin vs Tmax (sampled)
+Column {data-width=650}
+###Daily Tmin vs Tmax (sampled)
 ```{r}
 # Plot of daily min temperature and max temperature
 wx <- ny_noaa |>
@@ -35,7 +36,8 @@ layout(title = "Daily Tmin vs Tmax (sampled)",
        xaxis = list(title = "Tmin (°C)"), yaxis = list(title = "Tmax (°C)"))
 ```
 
-### Monthly Mean Precipitation
+Column {data-width=350}
+###Monthly Mean Precipitation
 ```{r}
 # Plot of monthly mean precipitation
 monthly <- ny_noaa |>
@@ -51,13 +53,13 @@ layout(title = "Monthly mean precipitation (NY NOAA)", xaxis = list(title = ""),
        yaxis = list(title = "Mean precipitation (mm)"))
 ```
 
-### Top 20 Stations by Observations
+###Top 20 Stations by Observations
 ```{r}
 # Plot of top 20 stations
 top_st <- ny_noaa |>
           count(id, name = "n_obs", sort = TRUE) |>
           slice_head(n = 20) |>
-          mutate(id = fct_reorder(id, n_obs))
+          mutate(id = fct_reorder(id, n_obs)) 
 
 plot_ly(top_st, x = ~id, y = ~n_obs, type = "bar") |>
 layout(title = "Top 20 stations by observations", 
