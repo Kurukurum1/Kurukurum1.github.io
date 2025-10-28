@@ -3,9 +3,9 @@ title: "welcome"
 output: html_document
 ---
 
-# Hi
+# Hi, This is Ethan Guo
 
-This is my website for P8105 Homework 4.
+Welcome to my website for P8105 Homework 4.
 
 - GitHub: <https://github.com/Kurukurum1>  
 - Email: <ygtomor1@gmail.com>
