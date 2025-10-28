@@ -1,0 +1,61 @@
+---
+title: "NY NOAA Dashboard"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: cerulean
+runtime: static
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
+library(janitor)
+set.seed(123)
+data("ny_noaa", package = "p8105.datasets")
+```
+
+## R Markdown
+```{r}
+wx <- ny_noaa |>
+      clean_names() |>
+      mutate(tmin = as.numeric(tmin) / 10, tmax = as.numeric(tmax) / 10,
+             prcp = as.numeric(prcp) / 10) |>
+      filter(!is.na(tmin), !is.na(tmax)) |>
+      slice_sample(n = 20000)
+
+plot_ly(wx, x = ~tmin, y = ~tmax, type = "scatter", mode = "markers", 
+        alpha = 0.35) |>
+layout(title = "Daily Tmin vs Tmax (sampled)", 
+       xaxis = list(title = "Tmin (°C)"), yaxis = list(title = "Tmax (°C)"))
+```
+
+```{r}
+monthly <- ny_noaa |>
+           mutate(year = as.integer(substr(date, 1, 4)), 
+                  month = as.integer(substr(date, 6, 7)),
+                  prcp  = as.numeric(prcp) / 10) |>
+           group_by(year, month) |>
+           summarise(mean_prcp = mean(prcp, na.rm = TRUE), .groups = "drop") |>
+           mutate(ym = as.Date(sprintf("%04d-%02d-01", year, month)))
+
+plot_ly(monthly, x = ~ym, y = ~mean_prcp, type = "scatter", mode = "lines") |>
+layout(title = "Monthly mean precipitation (NY NOAA)", xaxis = list(title = ""),
+       yaxis = list(title = "Mean precipitation (mm)"))
+```
+
+```{r}
+top_st <- ny_noaa |>
+          count(id, name = "n_obs", sort = TRUE) |>
+          slice_head(n = 20) |>
+          mutate(id = fct_reorder(id, n_obs))
+
+plot_ly(top_st, x = ~id, y = ~n_obs, type = "bar") |>
+layout(title = "Top 20 stations by observations", 
+       xaxis = list(title = "", tickangle = -45),
+       yaxis = list(title = "Observations"))
+```
